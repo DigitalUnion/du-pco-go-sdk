@@ -46,7 +46,7 @@ type Response struct {
 	// |10999 | Other error                     |
 	//
 	// code 0 means success, others means errors
-	Code string `json:"code,omitempty"`
+	Code int `json:"code,omitempty"`
 
 	// Msg the message of response
 	// if code not 0, the msg will tell you the reason

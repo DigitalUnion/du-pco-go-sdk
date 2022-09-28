@@ -22,8 +22,8 @@ const (
 	secretNotMathMsg     = "Secret key and secret value not match"
 	pageNotFoundErr      = "404 page not found"
 	pageNotFoundMsg      = "Request path error"
-	pathErrorCode        = "2"
-	otherErrorCode       = "10999"
+	pathErrorCode        = 2
+	otherErrorCode       = 10999
 )
 
 var sdkVer = "v0.0.5"
