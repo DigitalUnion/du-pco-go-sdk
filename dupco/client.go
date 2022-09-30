@@ -87,8 +87,14 @@ func (p *Client) Call(method string, data []byte) (res Response) {
 		secretKey: p.secretKey,
 	}
 
+	var err error
 	if len(data) != 0 {
-		data = encode(data, p.secretVal)
+		data, err = encode(data, p.secretVal)
+		if err != nil {
+			res.Code = otherErrorCode
+			res.Msg = err.Error()
+			return
+		}
 	}
 	resCode, respBody, err := http(httpMethodPost, method, data, header)
 	if err != nil {
@@ -103,7 +109,7 @@ func (p *Client) Call(method string, data []byte) (res Response) {
 	}
 	if resCode == 200 {
 		if len(respBody) != 0 {
-			respBody, err = decode(respBody, p.secretVal)
+			respBody, err = Decode(respBody, p.secretVal)
 			if err != nil {
 				res.Code = otherErrorCode
 				errStr := err.Error()
