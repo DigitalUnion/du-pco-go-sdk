@@ -7,7 +7,6 @@
 package dupco
 
 import (
-	"errors"
 	"fmt"
 	"github.com/goccy/go-json"
 	"strings"
@@ -63,19 +62,13 @@ type Response struct {
 // clientId identify of dupco
 // secretKey key of secret
 // secretVal value of secret
-func NewClient(clientId, secretKey, secretVal string) (*Client, error) {
-	k := len(secretVal)
-	switch k {
-	case 16, 24, 32:
-		break
-	default:
-		return nil, errors.New("Key size error. either 16, 24, or 32 bytes to select")
-	}
+func NewClient(clientId, secretKey, secretVal string) *Client {
+	secretVal = fillKey(secretVal)
 	return &Client{
 		clientId:  clientId,
 		secretKey: secretKey,
 		secretVal: []byte(secretVal),
-	}, nil
+	}
 }
 
 // EnableTestMode: enable test mode
