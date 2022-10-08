@@ -81,10 +81,11 @@ func (p *Client) EnableTestMode() {
 //
 // Response response from remote server
 // response if valid if error is nil
-func (p *Client) Call(method string, data []byte) (res Response) {
+func (p *Client) Call(functionName string, data []byte) (res Response) {
 	header := map[string]string{
 		clientId:  p.clientId,
 		secretKey: p.secretKey,
+		function:  functionName,
 	}
 
 	var err error
@@ -96,7 +97,7 @@ func (p *Client) Call(method string, data []byte) (res Response) {
 			return
 		}
 	}
-	resCode, respBody, err := http(httpMethodPost, method, data, header)
+	resCode, respBody, err := http(httpMethodPost, data, header)
 	if err != nil {
 		res.Code = otherErrorCode
 		res.Msg = err.Error()

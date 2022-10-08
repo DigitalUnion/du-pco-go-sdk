@@ -13,11 +13,7 @@ import (
 )
 
 func ExampleClient() {
-	api, err := dupco.NewClient("aaaaaa", "test", "aaaaaaaa")
-	if err != nil {
-		log.Println(err.Error())
-		return
-	}
+	api := dupco.NewClient("aaaaaa", "test", "aaaaaaaa")
 	api.EnableTestMode()
 	for i := 0; i < 10; i++ {
 		r := api.Call("/geofence/v1/list_fence", nil)
