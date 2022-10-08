@@ -13,7 +13,6 @@ import (
 	"crypto/cipher"
 	"github.com/valyala/fasthttp"
 	"io/ioutil"
-	"strings"
 )
 
 // Decode : decode data
@@ -25,37 +24,6 @@ func Decode(data, secret []byte) ([]byte, error) {
 	return zlibUnCompress(xorBs)
 }
 
-func fillKey(key string) string {
-	l := len(key)
-	switch l {
-	case 16, 24, 32:
-		return key
-	}
-	if l < 16 {
-		return fillN(key, 16)
-	}
-	if l < 24 {
-		return fillN(key, 24)
-	}
-	if l < 32 {
-		return fillN(key, 32)
-	}
-	return key[:32]
-}
-func fillN(s string, count int) string {
-	l := len(s)
-	c := count / l
-	m := count % l
-	sb := strings.Builder{}
-	sb.Grow(count)
-	for i := 0; i < c; i++ {
-		sb.WriteString(s)
-	}
-	if m != 0 {
-		sb.WriteString(s[:m])
-	}
-	return sb.String()
-}
 func http(reqMethod, url string, reqBody []byte, header map[string]string) (int, []byte, error) {
 	req := fasthttp.AcquireRequest()
 	defer fasthttp.ReleaseRequest(req)
@@ -85,6 +53,7 @@ func encode(data, key []byte) ([]byte, error) {
 }
 
 func aesEncrypt(data []byte, key []byte) ([]byte, error) {
+	key = fillKey(key)
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
@@ -98,6 +67,7 @@ func aesEncrypt(data []byte, key []byte) ([]byte, error) {
 }
 
 func aesDecrypt(data []byte, key []byte) ([]byte, error) {
+	key = fillKey(key)
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
@@ -149,4 +119,36 @@ func zlibUnCompress(s []byte) ([]byte, error) {
 		return nil, err
 	}
 	return bytes, nil
+}
+
+func fillKey(key []byte) []byte {
+	l := len(key)
+	switch l {
+	case 16, 24, 32:
+		return key
+	}
+	if l < 16 {
+		return fillN(key, 16)
+	}
+	if l < 24 {
+		return fillN(key, 24)
+	}
+	if l < 32 {
+		return fillN(key, 32)
+	}
+	return key[:32]
+}
+func fillN(s []byte, count int) []byte {
+	l := len(s)
+	c := count / l
+	m := count % l
+	bf := bytes.Buffer{}
+	bf.Grow(count)
+	for i := 0; i < c; i++ {
+		bf.Write(s)
+	}
+	if m != 0 {
+		bf.Write(s[:m])
+	}
+	return bf.Bytes()
 }

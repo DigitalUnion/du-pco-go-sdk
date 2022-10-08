@@ -63,7 +63,6 @@ type Response struct {
 // secretKey key of secret
 // secretVal value of secret
 func NewClient(clientId, secretKey, secretVal string) *Client {
-	secretVal = fillKey(secretVal)
 	return &Client{
 		clientId:  clientId,
 		secretKey: secretKey,
