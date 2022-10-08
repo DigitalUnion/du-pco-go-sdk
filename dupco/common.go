@@ -45,9 +45,11 @@ func http(reqMethod, url string, reqBody []byte, header map[string]string) (int,
 	return resp.StatusCode(), resp.Body(), nil
 }
 
-func encode(data, sv []byte) ([]byte, error) {
+// The key argument should be the AES key,
+// either 16, 24, or 32 bytes to select
+func encode(data, key []byte) ([]byte, error) {
 	compressData := zlibCompress(data)
-	return aesEncrypt(compressData, sv)
+	return aesEncrypt(compressData, key)
 }
 
 func aesEncrypt(data []byte, key []byte) ([]byte, error) {
