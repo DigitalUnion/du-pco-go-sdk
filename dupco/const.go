@@ -7,6 +7,11 @@
 package dupco
 
 const (
+	IDMAP_QUERY               = "idmap-query"
+	DEVICE_TRACK_SUBSCRIPTION = "device-track-subscription"
+	FENCE_SUB                 = "fence-sub"
+)
+const (
 	function         = "function"
 	clientId         = "client_id"
 	secretKey        = "secret_key"
