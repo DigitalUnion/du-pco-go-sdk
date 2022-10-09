@@ -77,6 +77,14 @@ func (p *Client) EnableTestMode() {
 	sdkVer = sdkVerForTest
 }
 
+// IDMapQuery: call idmap-query function
+//
+// Response response from remote server
+// response if valid if error is nil
+func (p *Client) IDMapQuery(data []byte) (res Response) {
+	return p.Call(IDMAP_QUERY, data)
+}
+
 // Call: call remote function
 //
 // Response response from remote server
