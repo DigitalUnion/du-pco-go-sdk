@@ -12,7 +12,7 @@ const (
 	FENCE_SUB                 = "fence-sub"
 )
 const (
-	function         = "function"
+	apiIdKey         = "api_id"
 	clientId         = "client_id"
 	secretKey        = "secret_key"
 	fmtHttpCodeError = "HTTP CODE:%d"
@@ -21,7 +21,7 @@ const (
 const (
 	sdkVerKey            = "sdk_ver"
 	sdkVerForTest        = "test"
-	domain               = "http://data.shuzilm.cn/pco/access"
+	domain               = "http://data.shuzijz.cn/pco/data/sdk"
 	httpMethodPost       = "POST"
 	contentTypeJson      = "application/json; charset=utf-8"
 	zlibInvalidHeaderErr = "zlib: invalid header"

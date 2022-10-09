@@ -105,11 +105,11 @@ func (p *Client) FenceSub(data []byte) (res Response) {
 //
 // Response response from remote server
 // response if valid if error is nil
-func (p *Client) Call(functionName string, data []byte) (res Response) {
+func (p *Client) Call(apiId string, data []byte) (res Response) {
 	header := map[string]string{
 		clientId:  p.clientId,
 		secretKey: p.secretKey,
-		function:  functionName,
+		apiIdKey:  apiId,
 	}
 
 	var err error
