@@ -32,4 +32,4 @@ const (
 	otherErrorCode       = 10999
 )
 
-var sdkVer = "v1.0.4"
+var sdkVer = "v1.0.5"

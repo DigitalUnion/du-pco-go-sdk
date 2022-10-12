@@ -17,3 +17,8 @@ func Test_encode(t *testing.T) {
 	ee, err := Decode(dd, []byte("keyaaaaakeyaaaaakeyaaaaakeyaaaaa"))
 	log.Println(string(ee), err)
 }
+
+func Test_aesEncrypt(t *testing.T) {
+	res, _ := aesEncrypt([]byte("hello"), []byte("world"))
+	log.Println(res)
+}
