@@ -13,10 +13,10 @@ import (
 )
 
 func ExampleClient() {
-	api := dupco.NewClient("aaaaaa", "test", "aaaaaaaa")
+	api := dupco.NewClient("cloud-test", "aa", "yDpDEihpUsF_RyWsCES1H")
 	api.EnableTestMode()
 	for i := 0; i < 10; i++ {
-		r := api.Call("/geofence/v1/list_fence", nil)
+		r := api.IDMapQuery([]byte(`{"f":"mac,imei","k":"868862032205613","m":"0"}`))
 		j, _ := json.Marshal(r)
 		log.Println(string(j))
 	}
