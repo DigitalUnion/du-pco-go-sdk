@@ -58,7 +58,7 @@ func aesEncrypt(data []byte, key []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	blockSize := 8
+	blockSize := block.BlockSize()
 	encryptBytes := pkcs5Padding(data, blockSize)
 	crypted := make([]byte, len(encryptBytes))
 	blockMode := cipher.NewCBCEncrypter(block, key[:blockSize])
@@ -72,7 +72,7 @@ func aesDecrypt(data []byte, key []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	blockSize := 8
+	blockSize := block.BlockSize()
 	blockMode := cipher.NewCBCDecrypter(block, key[:blockSize])
 	crypted := make([]byte, len(data))
 	blockMode.CryptBlocks(crypted, data)
