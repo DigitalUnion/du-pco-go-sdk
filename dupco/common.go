@@ -58,8 +58,8 @@ func aesEncrypt(data []byte, key []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	blockSize := block.BlockSize()
-	encryptBytes := pkcs7Padding(data, blockSize)
+	blockSize := 8
+	encryptBytes := pkcs5Padding(data, blockSize)
 	crypted := make([]byte, len(encryptBytes))
 	blockMode := cipher.NewCBCEncrypter(block, key[:blockSize])
 	blockMode.CryptBlocks(crypted, encryptBytes)
@@ -72,24 +72,24 @@ func aesDecrypt(data []byte, key []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	blockSize := block.BlockSize()
+	blockSize := 8
 	blockMode := cipher.NewCBCDecrypter(block, key[:blockSize])
 	crypted := make([]byte, len(data))
 	blockMode.CryptBlocks(crypted, data)
-	crypted, err = pkcs7UnPadding(crypted)
+	crypted, err = pkcs5UnPadding(crypted)
 	if err != nil {
 		return nil, err
 	}
 	return crypted, nil
 }
 
-func pkcs7Padding(data []byte, blockSize int) []byte {
+func pkcs5Padding(data []byte, blockSize int) []byte {
 	padding := blockSize - len(data)%blockSize
 	padText := bytes.Repeat([]byte{byte(padding)}, padding)
 	return append(data, padText...)
 }
 
-func pkcs7UnPadding(data []byte) ([]byte, error) {
+func pkcs5UnPadding(data []byte) ([]byte, error) {
 	length := len(data)
 	if length == 0 {
 		return data, nil
