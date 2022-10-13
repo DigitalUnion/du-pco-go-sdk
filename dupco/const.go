@@ -28,4 +28,4 @@ const (
 	otherErrorCode       = 10999
 )
 
-var sdkVer = "v1.0.6"
+var sdkVer = "v1.0.7"
