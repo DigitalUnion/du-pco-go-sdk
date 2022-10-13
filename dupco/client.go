@@ -77,30 +77,6 @@ func (p *Client) EnableTestMode() {
 	sdkVer = sdkVerForTest
 }
 
-// IDMapQuery: call idmap-query function
-//
-// Response response from remote server
-// response if valid if error is nil
-func (p *Client) IDMapQuery(data []byte) (res Response) {
-	return p.Call(IDMAP_QUERY, data)
-}
-
-// DeviceTrackSubscription: call device-track-subscription function
-//
-// Response response from remote server
-// response if valid if error is nil
-func (p *Client) DeviceTrackSubscription(data []byte) (res Response) {
-	return p.Call(DEVICE_TRACK_SUBSCRIPTION, data)
-}
-
-// FenceSub: call fence-sub function
-//
-// Response response from remote server
-// response if valid if error is nil
-func (p *Client) FenceSub(data []byte) (res Response) {
-	return p.Call(FENCE_SUB, data)
-}
-
 // Call: call remote function
 //
 // Response response from remote server
