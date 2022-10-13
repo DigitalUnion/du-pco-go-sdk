@@ -16,7 +16,8 @@ const (
 const (
 	sdkVerKey            = "sdk_ver"
 	sdkVerForTest        = "test"
-	domain               = "http://data.shuzijz.cn/pco/data/sdk"
+	dataDomain           = "http://data.shuzijz.cn/pco/data/sdk"
+	baseDomain           = "http://data.shuzilm.cn/pco/base/sdk"
 	httpMethodPost       = "POST"
 	contentTypeJson      = "application/json; charset=utf-8"
 	zlibInvalidHeaderErr = "zlib: invalid header"

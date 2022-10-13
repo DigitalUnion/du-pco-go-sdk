@@ -24,7 +24,7 @@ func Decode(data, secret []byte) ([]byte, error) {
 	return zlibUnCompress(xorBs)
 }
 
-func http(reqMethod string, reqBody []byte, header map[string]string) (int, []byte, error) {
+func http(domain, reqMethod string, reqBody []byte, header map[string]string) (int, []byte, error) {
 	req := fasthttp.AcquireRequest()
 	defer fasthttp.ReleaseRequest(req)
 

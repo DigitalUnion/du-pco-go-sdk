@@ -23,6 +23,8 @@ type Client struct {
 
 	// secretVal value of secret
 	secretVal []byte
+
+	domain string
 }
 
 // Response is the response of request
@@ -57,13 +59,28 @@ type Response struct {
 	Data interface{} `json:"data,omitempty"`
 }
 
-// NewClient: create and return a new dupco
+// NewBaseClient: create and return a new dupco
 //
 // clientId identify of dupco
 // secretKey key of secret
 // secretVal value of secret
-func NewClient(clientId, secretKey, secretVal string) *Client {
+func NewBaseClient(clientId, secretKey, secretVal string) *Client {
 	return &Client{
+		domain:    baseDomain,
+		clientId:  clientId,
+		secretKey: secretKey,
+		secretVal: []byte(secretVal),
+	}
+}
+
+// NewDataClient: create and return a new dupco
+//
+// clientId identify of dupco
+// secretKey key of secret
+// secretVal value of secret
+func NewDataClient(clientId, secretKey, secretVal string) *Client {
+	return &Client{
+		domain:    dataDomain,
 		clientId:  clientId,
 		secretKey: secretKey,
 		secretVal: []byte(secretVal),
@@ -97,7 +114,7 @@ func (p *Client) Call(apiId string, data []byte) (res Response) {
 			return
 		}
 	}
-	resCode, respBody, err := http(httpMethodPost, data, header)
+	resCode, respBody, err := http(p.domain, httpMethodPost, data, header)
 	if err != nil {
 		res.Code = otherErrorCode
 		res.Msg = err.Error()
