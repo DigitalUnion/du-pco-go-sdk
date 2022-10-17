@@ -20,7 +20,7 @@ func ExampleClient() {
 	api := dupco.NewClient("cloud-test", "aa", "yDpDEihpUsF_RyWsCES1H")
 	api.EnableTestMode()
 	for i := 0; i < 10; i++ {
-		r := api.IDMapQuery([]byte(`{"f":"mac,imei","k":"868862032205613","m":"0"}`))
+		r := api.Call("idmap-query-all", []byte(`{"f":"mac,imei","k":"868862032205613","m":"0"}`))
 		j, _ := json.Marshal(r)
 		log.Println(string(j))
 	}
