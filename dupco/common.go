@@ -123,20 +123,13 @@ func zlibUnCompress(s []byte) ([]byte, error) {
 
 func fillKey(key []byte) []byte {
 	l := len(key)
-	switch l {
-	case 16, 24, 32:
+	if l == 16 {
 		return key
 	}
 	if l < 16 {
 		return fillN(key, 16)
 	}
-	if l < 24 {
-		return fillN(key, 24)
-	}
-	if l < 32 {
-		return fillN(key, 32)
-	}
-	return key[:32]
+	return key[:16]
 }
 func fillN(s []byte, count int) []byte {
 	l := len(s)
