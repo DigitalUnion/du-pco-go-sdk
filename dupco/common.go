@@ -46,7 +46,7 @@ func http(domain, reqMethod string, reqBody []byte, header map[string]string) (i
 }
 
 // The key argument should be the AES key,
-// either 16, 24, or 32 bytes to select
+// should be 16 bytes
 func encode(data, key []byte) ([]byte, error) {
 	compressData := zlibCompress(data)
 	return aesEncrypt(compressData, key)
