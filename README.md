@@ -17,7 +17,7 @@ import (
 )
 
 func ExampleClient() {
-	api := dupco.NewClient("cloud-test", "aa", "yDpDEihpUsF_RyWsCES1H")
+	api := dupco.NewDataClient("cloud-test", "aa", "yDpDEihpUsF_RyWsCES1H")
 	api.EnableTestMode()
 	for i := 0; i < 10; i++ {
 		r := api.Call("idmap-query-all", []byte(`{"f":"mac,imei","k":"868862032205613","m":"0"}`))
