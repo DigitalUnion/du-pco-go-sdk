@@ -114,7 +114,7 @@ func (p *Client) Call(apiId string, data []byte) (res Response) {
 			return
 		}
 	}
-	resCode, respBody, err := http(p.domain, httpMethodPost, data, header)
+	resCode, respBody, err := httpRequest(p.domain, httpMethodPost, data, header)
 	if err != nil {
 		res.Code = otherErrorCode
 		res.Msg = err.Error()
