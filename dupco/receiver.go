@@ -11,8 +11,8 @@ import (
 	"net/http"
 )
 
-// DecodeData: get decode data from http.Request
-func DecodeData(req http.Request, secret []byte) ([]byte, error) {
+// DecodeDataFromRequest: get decode data from http.Request
+func DecodeRequestData(req *http.Request, secret []byte) ([]byte, error) {
 	body, err := ioutil.ReadAll(req.Body)
 	if err != nil {
 		return nil, err
