@@ -11,6 +11,7 @@ import (
 	"compress/zlib"
 	"crypto/aes"
 	"crypto/cipher"
+	"encoding/base64"
 	"github.com/valyala/fasthttp"
 	"io/ioutil"
 )
@@ -18,6 +19,17 @@ import (
 // Decode : decode data
 func Decode(data, secret []byte) ([]byte, error) {
 	xorBs, err := aesDecrypt(data, secret)
+	if err != nil {
+		return nil, err
+	}
+	return zlibUnCompress(xorBs)
+}
+
+// DecodePushData : decode push data
+func DecodePushData(data, secret []byte) ([]byte, error) {
+	base64Decode := make([]byte, base64.StdEncoding.DecodedLen(len(data)))
+	base64.StdEncoding.Decode(base64Decode, data)
+	xorBs, err := aesDecrypt(base64Decode, secret)
 	if err != nil {
 		return nil, err
 	}
