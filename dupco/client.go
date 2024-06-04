@@ -73,6 +73,15 @@ func NewBaseClient(clientId, secretKey, secretVal string) *Client {
 	}
 }
 
+func NewClient(domain, clientId, secretKey, secretVal string) *Client {
+	return &Client{
+		domain:    domain,
+		clientId:  clientId,
+		secretKey: secretKey,
+		secretVal: []byte(secretVal),
+	}
+}
+
 // NewDataClient: create and return a new dupco
 //
 // clientId identify of dupco
